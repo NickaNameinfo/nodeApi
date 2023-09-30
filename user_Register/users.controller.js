@@ -8,7 +8,7 @@ const userService = require("./user.service");
 router.post("/authenticate", authenticateSchema, authenticate);
 router.post("/register", registerSchema, register);
 router.get("/getAllUser", getAll);
-router.get("/generateOtp", getOtp);
+router.post("/generateOtp", getOtp);
 router.get("/current", getCurrent);
 router.get("/:userName", getByUserName);
 router.get("/:id", getById);
