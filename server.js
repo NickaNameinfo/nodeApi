@@ -12,11 +12,11 @@ app.use(cors());
 app.options("*", cors());
 
 var fs = require('fs');
-var options = {
-    key: fs.readFileSync('backendkavalanamecheap.key'),
-    cert: fs.readFileSync('nodebackend_kavalarnalantn_in.crt'),
-    ca: fs.readFileSync('nodebackendbundle_kavalarnalantn_in.crt'),
-};
+// var options = {
+//     key: fs.readFileSync('backendkavalanamecheap.key'),
+//     cert: fs.readFileSync('nodebackend_kavalarnalantn_in.crt'),
+//     ca: fs.readFileSync('nodebackendbundle_kavalarnalantn_in.crt'),
+// };
 
 // app.use(express.static('public', https_options))
 
@@ -39,8 +39,8 @@ app.use('/notification', require('./sendNotification/notification.controller'));
 app.use(errorHandler);
 
 // start server
-// const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 2083) : 2083;
-// app.listen(port, () => console.log('Server listening on port ' + port));
-var listener = https.createServer(options, app).listen(5000, function () {
-    console.log('Express HTTPS server listening on port ' + listener.address().port);
-});
+const port =  5000;
+app.listen(port, () => console.log('Server listening on port ' + port));
+// var listener = https.createServer(options, app).listen(5000, function () {
+//     console.log('Express HTTPS server listening on port ' + listener.address().port);
+// });

@@ -1,10 +1,10 @@
 ﻿{
     "database": {       
-        "host": "localhost",
+        "host": "nicknameinfotech.com",
         "port": 3306,
-        "user": "testuser",
-        "password": "Welcome@123",
-        "database": "testdemo"
+        "user": "u490757224_kavalan",
+        "password": "gP5@9ia~w7I",
+        "database": "u490757224_kavalan"
     },
     "secret": "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING"
 }   
