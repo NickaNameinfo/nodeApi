@@ -11,7 +11,8 @@ module.exports = {
   create,
   update,
   delete: _delete,
-  generationOtp
+  generationOtp,
+  generatemailOtp
 };
 
 async function authenticate(data) {
@@ -122,3 +123,33 @@ async function generationOtp(number) {
     res.status(500).json({ error: "Failed to generate OTP" });
   }
 }
+async function generatemailOtp(number) {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "mail.ibss.co.in",
+      port: 465, // or 465
+      secure: true, // or true
+      auth: {
+        user: "support@ibss.co.in",
+        pass: "E!LO%?8bO(Z9",
+      },
+    });
+    // async..await is not allowed in global scope, must use a wrapper
+    const otp = Math.floor(100000 + Math.random() * 900000); // Generate a 6-digit random OTP
+
+    const info = await transporter.sendMail({
+      from: "support@ibss.co.in", // sender address
+      to: number, // list of receivers
+      subject: "Otp ✔", // Subject line
+      text: `Verification Code is ${otp}`, // plain text body
+      // html: "<b>Hello world?</b>", // html body
+    });
+    if (info.messageId) {
+      return (otp);
+    } // Return the generated OTP in the response
+  } catch (error) {
+    console.error("Error generating OTP:", error);
+    res.status(500).json({ error: "Failed to generate OTP" });
+  }
+}
+

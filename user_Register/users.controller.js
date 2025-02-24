@@ -9,6 +9,7 @@ router.post("/authenticate", authenticateSchema, authenticate);
 router.post("/register", registerSchema, register);
 router.get("/getAllUser", getAll);
 router.post("/generateOtp", getOtp);
+router.post("/generateEmailOtp", generateEmailOtp);
 router.get("/current", getCurrent);
 router.get("/:userName", getByUserName);
 router.get("/:id", getById);
@@ -79,6 +80,12 @@ function getAll(req, res, next) {
 function getOtp(req, res, next) {
   userService
     .generationOtp(req.body?.number)
+    .then((opt) => res.json(opt))
+    .catch(next);
+}
+function generateEmailOtp(req, res, next) {
+  userService
+    .generatemailOtp(req.body?.number)
     .then((opt) => res.json(opt))
     .catch(next);
 }
