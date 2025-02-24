@@ -105,18 +105,43 @@ async function getByUserName(name) {
 async function generationOtp(number) {
   console.log(number, "numbernumber")
   try {
+
+    const transporter = nodemailer.createTransport({
+      host: "mail.ibss.co.in",
+      port: 465, // or 465
+      secure: true, // or true
+      auth: {
+        user: "support@ibss.co.in",
+        pass: "E!LO%?8bO(Z9",
+      },
+    });
+    console.log(email, "emailemail");
+
+    // async..await is not allowed in global scope, must use a wrapper
     const otp = Math.floor(100000 + Math.random() * 900000); // Generate a 6-digit random OTP
-    const smsApiUrl = `http://site.ping4sms.com/api/smsapi?key=e741867a2aae3c35f6a835cff40432a9&route=2&sender=TNPWEL&number=${Number(number)}&sms=Dear%20User,%20Your%${otp}%20is%209025.%20This%20OTP%20is%20valid%20for%2010%20minutes%20-%20TNPWEL&templateid=1207168620790375475`;
 
-    // Send the OTP via the API
-    const response = await axios.get(smsApiUrl);
+    const info = await transporter.sendMail({
+      from: "support@ibss.co.in", // sender address
+      to: email, // list of receivers
+      subject: "Otp ✔", // Subject line
+      text: `Verification Code is ${otp}`, // plain text body
+      // html: "<b>Hello world?</b>", // html body
+    });
+    if (info.messageId) {
+      return otp;
+    }
+    // const otp = Math.floor(100000 + Math.random() * 900000); // Generate a 6-digit random OTP
+    // const smsApiUrl = `http://site.ping4sms.com/api/smsapi?key=e741867a2aae3c35f6a835cff40432a9&route=2&sender=TNPWEL&number=${Number(number)}&sms=Dear%20User,%20Your%${otp}%20is%209025.%20This%20OTP%20is%20valid%20for%2010%20minutes%20-%20TNPWEL&templateid=1207168620790375475`;
 
-    console.log(response.status, "responseresponse");
-    // Handle the response from the API if necessary
+    // // Send the OTP via the API
+    // const response = await axios.get(smsApiUrl);
 
-    console.log(otp, "sdfasdf")
+    // console.log(response.status, "responseresponse");
+    // // Handle the response from the API if necessary
 
-    return otp; // Return the generated OTP in the response
+    // console.log(otp, "sdfasdf")
+
+    // return otp; // Return the generated OTP in the response
   } catch (error) {
     console.error("Error generating OTP:", error);
     res.status(500).json({ error: "Failed to generate OTP" });
