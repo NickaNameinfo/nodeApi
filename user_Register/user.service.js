@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const db = require("_helpers/db");
 const axios = require("axios");
+const nodemailer = require("nodemailer");
+
 module.exports = {
   authenticate,
   getAll,
